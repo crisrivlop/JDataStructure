@@ -68,6 +68,7 @@ public class List<E> implements IList<E>{
 			Node<E> tmp = tail;
 			tail = new Node<E>(pdato);
 			tmp.setNext(tail);
+			iterator.setLast(tail);
 			lenght++;
 		}
 	}
@@ -95,11 +96,7 @@ public class List<E> implements IList<E>{
 			}
 		}
 		else if (index == lenght){
-			Node<E> tmp = tail;
-			tail = new Node<E>(pdato);
-			tmp.setNext(tail);
-			iterator.setLast(tail);
-			lenght++;
+			add(pdato);
 		}
 		else{
 			Node<E> tmp = privateindex(index-1);

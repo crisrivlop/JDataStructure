@@ -96,12 +96,33 @@ public class DListIterator<E> implements Iterator<E>{
 		return new DListIterator<>(first,last,list,lenght);
 	}
 	
-	public static void main(String[] args) {
-		Integer a,b;
-		a = 3;
-		b = a;
-		System.out.println(b == a);
-		a--;
-		System.out.println(a + ":" + b);
+	void setFirst(NodeDouble<E> pfirst){
+		first = pfirst;
+		
+	}
+	
+	void setLast(NodeDouble<E> plast){
+		last = plast;
+	}
+	
+	NodeDouble<E> getActual(){
+		return actual;
+	}
+	NodeDouble<E> getFirst(){
+		return first;
+	}
+	NodeDouble<E> getLast(){
+		return last;
+	}
+	
+	void setActual(NodeDouble<E> pactual){
+		actual = pactual;
+	}
+	void reset(){
+		actual = first = last = null;
+	}
+	
+	public void resetIndex(){
+		actual = first;
 	}
 }
