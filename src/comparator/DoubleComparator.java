@@ -1,6 +1,6 @@
 package comparator;
 
-public class IntegerComparator<E> implements IComparator<E>{
+public class DoubleComparator<E> implements IComparator<E>{
 	@Override
 	public boolean isEqual(E pdato, E pdaton) {
 		if (pdato == null){
@@ -24,9 +24,9 @@ public class IntegerComparator<E> implements IComparator<E>{
 			}
 			return false;
 		}
-		Integer dato = (Integer) pdato;
-		Integer dato2 = (Integer) pdaton;
-		return dato<dato2;
+		Double dato = (Double) pdato;
+		Double dato2 = (Double) pdaton;
+		return (dato<dato2)?true:false;
 	}
 
 	@Override

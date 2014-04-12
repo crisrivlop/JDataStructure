@@ -1,16 +1,18 @@
 package comparator;
 
-public class IntegerComparator<E> implements IComparator<E>{
+public class FloatComparator<E> implements IComparator<E>{
+
 	@Override
 	public boolean isEqual(E pdato, E pdaton) {
-		if (pdato == null){
-			if(pdaton == null){
+		Float dato = (Float) pdato;
+		Float dato2 = (Float) pdaton;
+		if (dato == null){
+			if(dato2 == null){
 				return true;
 			}
 			return false;
 		}
-		
-		else if(pdato.equals(pdaton)){
+		else if(dato.equals(dato2)){
 			return true;
 		}
 		return false;
@@ -24,9 +26,9 @@ public class IntegerComparator<E> implements IComparator<E>{
 			}
 			return false;
 		}
-		Integer dato = (Integer) pdato;
-		Integer dato2 = (Integer) pdaton;
-		return dato<dato2;
+		Float dato = (Float) pdato;
+		Float dato2 = (Float) pdaton;
+		return (dato<dato2)?true:false;
 	}
 
 	@Override

@@ -1,11 +1,10 @@
 package comparator;
 
 public class StringComparator<E> implements IComparator<E>{
-
 	@Override
-	public boolean isEqual(E pdato, E pdaton){
-		String dato = (String) pdato;
-		String dato2 = (String) pdaton;
+	public boolean isEqual(E pdato, E pdaton) {
+		Float dato = (Float) pdato;
+		Float dato2 = (Float) pdaton;
 		if (dato == null){
 			if(dato2 == null){
 				return true;
@@ -19,23 +18,23 @@ public class StringComparator<E> implements IComparator<E>{
 	}
 
 	@Override
-	public boolean isLess(E pdato, E pdaton){
-		String dato = (String) pdato;
-		String dato2 = (String) pdaton;
-		if (dato == null){
-			if(dato2 == null){
+	public boolean isLess(E pdato, E pdaton) {
+		if (pdato == null){
+			if(pdaton == null){
 				return true;
 			}
 			return false;
 		}
+		String dato = (String)pdato;
+		String dato2 = (String) pdaton;
 		int a = dato.compareTo(dato2);
 		return(a < 0)? true:false;
 	}
 
 	@Override
-	public boolean isHigher(E pdato, E pdaton){
+	public boolean isHigher(E pdato, E pdaton) {
 		// TODO Auto-generated method stub
-		return !isLess(pdato, pdaton);
+		return !isLess(pdato, pdaton) && !isEqual(pdato, pdaton);
 	}
 
 }

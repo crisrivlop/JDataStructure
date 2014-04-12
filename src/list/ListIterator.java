@@ -48,6 +48,10 @@ public class ListIterator<E> implements Iterator<E>{
 		else{
 			Node<E> siguiente = actual.getNext();
 			actual.setDato(siguiente.getDato());
+			if (siguiente == last){
+				list.remove(list.lenght()-1);
+				return;
+			}
 			actual.setNext(siguiente.getNext());
 			list.decreaseLenght();
 		}
