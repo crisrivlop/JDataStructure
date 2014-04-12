@@ -1,4 +1,6 @@
-package listpack;
+package list;
+
+import comparator.IComparator;
 
 
 public interface IList<E>{
@@ -61,5 +63,9 @@ public interface IList<E>{
 	public int lenght();
 	
 	public Iterator<E> getIterator();
+	
+	IComparator<E> getComparator();
+	
+	public void setComparator(IComparator<E> comparator);
 	
 }

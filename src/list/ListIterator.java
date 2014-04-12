@@ -1,4 +1,4 @@
-package listpack;
+package list;
 
 public class ListIterator<E> implements Iterator<E>{
 	private Node<E> first,actual,last;

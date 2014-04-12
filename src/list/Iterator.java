@@ -1,4 +1,4 @@
-package listpack;
+package list;
 
 public interface Iterator<E> extends Cloneable{
 	public E getNext();

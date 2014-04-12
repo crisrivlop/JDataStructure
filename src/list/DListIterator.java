@@ -1,4 +1,4 @@
-package listpack;
+package list;
 
 public class DListIterator<E> implements Iterator<E>{
 	private NodeDouble<E> first;

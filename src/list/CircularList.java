@@ -1,6 +1,10 @@
-package listpack;
+package list;
+
+import comparator.IComparator;
 
 public class CircularList<E> implements IList<E>{
+	
+	private IComparator<E> comparator;
 
 	@Override
 	public void add(E pdato) {
@@ -53,6 +57,17 @@ public class CircularList<E> implements IList<E>{
 	public Iterator<E> getIterator() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public IComparator<E> getComparator() {
+		// TODO Auto-generated method stub
+		return comparator;
+	}
+
+	@Override
+	public void setComparator(IComparator<E> comparator) {
+		// TODO Auto-generated method stub
+		this.comparator = comparator;
 	}
 
 }

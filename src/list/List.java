@@ -1,4 +1,6 @@
-package listpack;
+package list;
+
+import comparator.IComparator;
 
 
 // TODO: Auto-generated Javadoc
@@ -48,6 +50,8 @@ public class List<E> implements IList<E>{
 	
 	/** el largo. */
 	private int lenght = 0;
+	
+	private IComparator<E> comparator;
 	
 	private ListIterator<E> iterator = new ListIterator<>(head,tail,this);
 	
@@ -207,6 +211,9 @@ public class List<E> implements IList<E>{
 	
 	@Override
 	public void set(int index,E pdato){
+		if (lenght == 0){
+			throw new NullPointerException("Lista vacia");
+		}
 		Node<E> tmp = privateindex(index);
 		tmp.setDato(pdato);
 	}
@@ -231,5 +238,17 @@ public class List<E> implements IList<E>{
 	
 	void decreaseLenght(){
 		lenght--;
+	}
+
+	@Override
+	public IComparator<E> getComparator() {
+		// TODO Auto-generated method stub
+		return comparator;
+	}
+
+	@Override
+	public void setComparator(IComparator<E> comparator) {
+		// TODO Auto-generated method stub
+		this.comparator = comparator;
 	}
 }

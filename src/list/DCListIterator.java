@@ -1,4 +1,4 @@
-package listpack;
+package list;
 
 public class DCListIterator<E> extends DListIterator<E> {
 

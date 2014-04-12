@@ -1,4 +1,6 @@
-package listpack;
+package list;
+
+import comparator.IComparator;
 
 
 
@@ -46,6 +48,7 @@ public class DoubleList<E> implements IList<E>{
 
 	private NodeDouble<E> head;
 	private NodeDouble<E> tail;
+	private IComparator<E> comparator;
 	private int lenght = 0;
 	private DListIterator<E> iterator = new DListIterator<>(head, tail, this, lenght);
 	
@@ -185,6 +188,9 @@ public class DoubleList<E> implements IList<E>{
 
 	@Override
 	public void set(int index, E pdato) {
+		if (lenght == 0){
+			throw new NullPointerException("Lista vacia");
+		}
 		privateindex(index).setDato(pdato);
 	}
 
@@ -236,5 +242,16 @@ public class DoubleList<E> implements IList<E>{
 	
 	public boolean empty(){
 		return lenght == 0;
+	}
+	@Override
+	public IComparator<E> getComparator() {
+		// TODO Auto-generated method stub
+		return comparator;
+	}
+
+	@Override
+	public void setComparator(IComparator<E> comparator) {
+		// TODO Auto-generated method stub
+		this.comparator = comparator;
 	}
 }
