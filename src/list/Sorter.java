@@ -71,16 +71,31 @@ public class Sorter<E> {
 		if (comparator == null){
 			throw new NullPointerException("ERROR: comparator no inicializado, iniciarlo en IList.setComparator(IComparator comparator)");
 		}
+		quikSortAux(plist, plist.getComparator(), 0, plist.lenght()-1);
 	}
 	
-	public void quikSortAux(IList<E> plist, IComparator<E> comparator, int ini, int fin){
+	private void quikSortAux(IList<E> plist, IComparator<E> comparator, int ini, int fin){
 		E pivot = plist.get((ini + fin)/2);
-		int from;
-		int to;
+		int from = ini;
+		int to = fin;
 		do{
-			for(from = ini;comparator.isLess(plist.get(from), pivot);from++){}
-		}while(true);
+			while(comparator.isLess(plist.get(from), pivot)){from++;}
+			while(comparator.isHigher(plist.get(to),pivot)){to--;}
+			if (from <= to){
+				E tmp = plist.get(from);
+				plist.set(from, plist.get(to));
+				plist.set(to, tmp);
+				from++;
+				to--;
+			}
+		}while(from<to);
 		
+		if (ini < to){
+			quikSortAux(plist, comparator, ini, to);	
+		}
+		if (from < fin){
+			quikSortAux(plist, comparator, from, fin);
+		}
 	}
 	
 	public void radixSort(IList<E> plist){
@@ -109,11 +124,22 @@ public class Sorter<E> {
 			if (!a){
 				return false;
 			}
-			System.out.println(plist.get(x) + ":" + plist.get(x+1));
 		}
 		return a;
 	}
 	
 	public static void main(String[] args) {
+		List<Integer> list = new List<>();
+		list.setComparator(comparator.IntegerComparator.getInstance());
+		for(int x = 0; x < 500; x++){
+			list.add((int)(Math.random() * 800));
+		}
+		list.print();
+		Sorter<Integer> sorter = new Sorter<>();
+		sorter.quickSort(list);
+		list.print();
+		String bool = sorter.isSorted(list)?"si":"no";
+		System.out.println("Esta Ordenada?" + bool);
+		
 	}
 }
