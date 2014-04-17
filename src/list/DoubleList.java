@@ -58,6 +58,7 @@ public class DoubleList<E> implements IList<E>{
 		if(head == null){
 			tail = head = new NodeDouble<E>(pdato);
 			iterator.setFirst(head);
+			iterator.setLast(tail);
 			lenght++;
 		}
 		else if(tail == head){
@@ -237,7 +238,8 @@ public class DoubleList<E> implements IList<E>{
 	@Override
 	public DListIterator<E> getIterator() {
 		// TODO Auto-generated method stub
-		return new DListIterator<>(head,tail,this,lenght);
+		iterator.setActual(head);
+		return iterator;
 	}
 	
 	public boolean empty(){

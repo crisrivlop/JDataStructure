@@ -11,6 +11,7 @@ public class DListIterator<E> implements Iterator<E>{
 		first = pfirst;
 		actual = first;
 		list = plist;
+		last = plast;
 		lenght = plength;
 	}
 	
