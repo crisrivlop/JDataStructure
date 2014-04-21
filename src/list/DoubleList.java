@@ -25,6 +25,7 @@ class NodeDouble<E>{
 	public boolean hasPrev(){ return prev != null;}
 	
 	public void print(){System.out.print(dato);}
+	public String toString(){ return dato == null? "null" : dato.toString();}
 }
 
 
@@ -46,184 +47,152 @@ class NodeDouble<E>{
 
 public class DoubleList<E> implements IList<E>{
 
-	private NodeDouble<E> head;
-	private NodeDouble<E> tail;
-	private IComparator<E> comparator;
-	private int lenght = 0;
-	private DListIterator<E> iterator = new DListIterator<>(head, tail, this, lenght);
+	private NodeDouble<E> _head;
+	private NodeDouble<E> _tail;
+	private IComparator<E> _comparator;
+	private int _lenght = 0;
+	
 	
 	
 	@Override
-	public void add(E pdato) {
-		if(head == null){
-			tail = head = new NodeDouble<E>(pdato);
-			iterator.setFirst(head);
-			iterator.setLast(tail);
-			lenght++;
+	public void addi(E pdato){
+		if (_head == null){
+			_head = _tail = new NodeDouble<E>(pdato);
 		}
-		else if(tail == head){
-			tail = new NodeDouble<E>(pdato);
-			head.setNext(tail);
-			tail.setPrev(head);
-			iterator.setLast(tail);
-			lenght++;
+		else if (_head == _tail){
+			_head = new NodeDouble<E>(pdato);
+			_head.setNext(_tail);
+			_tail.setPrev(_head);
 		}
 		else{
-			NodeDouble<E> tmp = tail;
-			tail = new NodeDouble<E>(pdato);
-			tmp.setNext(tail);
-			tail.setPrev(tmp);
-			iterator.setLast(tail);
-			lenght++;
+			NodeDouble<E> tmp = _head;
+			_head = new NodeDouble<E>(pdato);
+			_head.setNext(tmp);
+			tmp.setPrev(_head);
 		}
+		_lenght++;
+	}
+
+	@Override
+	public void add(E pdato) {
+		if(_head == null){
+			_head = _tail = new NodeDouble<E>(pdato);
+		}
+		else if(_tail == _head){
+			_tail = new NodeDouble<E>(pdato);
+			_head.setNext(_tail);
+			_tail.setPrev(_head);
+		}
+		else{
+			NodeDouble<E> tmp = _tail;
+			_tail = new NodeDouble<E>(pdato);
+			tmp.setNext(_tail);
+			_tail.setPrev(tmp);
+		}
+		_lenght++;
 	}
 	
 	@Override
 	public void add(E pdato,int index){
-		if ( 0 > index || lenght < index){
+		if ( 0 > index || _lenght < index){
 			throw new IndexOutOfBoundsException("Fuera de rango: " + index);
 		}
-		if (index == 0){
-			if (lenght == 1){
-				head = new NodeDouble<E>(pdato);
-				head.setNext(tail);
-				tail.setPrev(head);
-				iterator.setFirst(head);
-				iterator.setLast(tail);
-				lenght++;
-			}
-			if (lenght == 0){
-				add(pdato);
-			}
-			else{
-				NodeDouble<E> tmp = head;
-				head = new NodeDouble<E>(pdato);
-				head.setNext(tmp);
-				tmp.setPrev(head);
-				iterator.setFirst(head);
-				lenght++;
-			}
+		else if (index == 0){
+			addi(pdato);
 		}
-		else if (index == lenght){
+		else if (index == _lenght){
 			add(pdato);
 		}
 		else{
-			NodeDouble<E> tmp = privateindex(index);
+			NodeDouble<E> tmp = getIndex(index);
 			NodeDouble<E> tmp2 = new NodeDouble<E>(pdato);
 			tmp.getPrev().setNext(tmp2);
 			tmp2.setPrev(tmp.getPrev());
 			tmp.setPrev(tmp2);
 			tmp2.setNext(tmp);
-			lenght++;
+			_lenght++;
 		}
 	}
+	
+	
+	private void removeFirst(){
+		if (_head.hasNext()){
+			_head = _head.getNext();
+			_head.setPrev(null);
+			_lenght--;
+		}
+		else{
+			_head = _tail = null;
+			_lenght = 0;
+		} 
+	}
+	
+	private void removeLast(){
+		if (_head == _tail){
+			_head = _tail = null;
+			_lenght = 0;
+		}
+		else{
+			_tail = _tail.getPrev();
+			_tail.setNext(null);
+			_lenght--;
+		}
+	}
+	
 
 	@Override
 	public void remove(int index) {
-		if (index< 0 || lenght <= index){
-			if (0 == lenght){
-				throw new IndexOutOfBoundsException("Lista vacia");
-			}
+		if (index < 0 || _lenght <= index){
+			if(0 == _lenght){return;}
 			throw new IndexOutOfBoundsException("No se puede remover el dato,\n "
 					+ "pues esta fuera de los limites de la lista");
 		}
-			
 		if(index == 0){
-			if (head.hasNext()){
-				head = head.getNext();
-				head.setPrev(null);
-				iterator.setFirst(head);
-				lenght--;
-				if (head == tail){
-					iterator.setLast(null);
-					head.setNext(null);
-					tail.setPrev(null);
-				}
-				if (iterator.getActual() == iterator.getFirst()){
-					iterator.setActual(head);
-				}
-			}
-			else{
-				iterator.reset();
-				tail = head = null;
-				lenght = 0;
-			} 
+			removeFirst();
 		}
-		else if (index == lenght-1){
-			tail = tail.getPrev();
-			tail.setNext(null);
-			if (iterator.getActual() == iterator.getLast()){
-				iterator.setActual(tail);
-			}
-			iterator.setLast(tail);
-			lenght--;
+		else if (index == _lenght-1){
+			removeLast();
 		}
 		else{
-			NodeDouble<E> tmp = privateindex(index);
-			if(iterator.getActual() == tmp){
-				iterator.setActual(tmp.getNext());
-			}
+			NodeDouble<E> tmp = getIndex(index);
 			tmp.getPrev().setNext(tmp.getNext());
 			tmp.getNext().setPrev(tmp.getPrev());
-			lenght--;
-		}
-	}
-
-	@Override
-	public void print() {
-		if (!empty()){
-			System.out.print('[');
-			NodeDouble<E> actual = head;
-			for(int i = 0; i < lenght-1; i++){
-				actual.print();
-				actual = actual.getNext();
-				System.out.print(',');
-			}
-			actual.print();
-			System.out.println(']');
-		}
-		else{
-			System.out.println("[]");
+			_lenght--;
 		}
 	}
 
 	@Override
 	public void set(int index, E pdato) {
-		if (lenght == 0){
+		if (_lenght == 0){
 			throw new NullPointerException("Lista vacia");
 		}
-		privateindex(index).setDato(pdato);
+		getIndex(index).setDato(pdato);
 	}
 
 	@Override
 	public E get(int index) {
-		return privateindex(index).getDato();
-	}
-
-	@Override
-	public int lenght() {
-		return lenght;
+		return getIndex(index).getDato();
 	}
 	
-	private NodeDouble<E> privateindex(int index){
+	private NodeDouble<E> getIndex(int index){
 		if (index == 0){
-			return head;
+			return _head;
 		}
-		else if(index == lenght-1){
-			return tail;
+		else if(index == _lenght-1){
+			return _tail;
 		}
-		else if (0< index && index < lenght-1){
-			int calculo = (lenght/2) - index;
+		else if (0< index && index < _lenght-1){
+			int calculo = (_lenght/2) - index;
 			NodeDouble<E> actual;
 			if(calculo <= 0){
-				calculo = lenght - index-1;
-				actual = tail;
+				calculo = _lenght - index-1;
+				actual = _tail;
 				for(int i = 0; i< calculo; i++){
 					actual = actual.getPrev();
 				}	
 			}
 			else{
-				actual = head;
+				actual = _head;
 				for(int i = 0; i< index; i++){
 					actual = actual.getNext();
 				}
@@ -234,26 +203,51 @@ public class DoubleList<E> implements IList<E>{
 			throw new IndexOutOfBoundsException("Fuera del rango: " + index);
 		}
 	}
+	
+	
+	@Override
+	public int getLenght() {
+		return _lenght;
+	}
 
 	@Override
 	public DListIterator<E> getIterator() {
-		// TODO Auto-generated method stub
-		iterator.setActual(head);
-		return iterator;
+		return new DListIterator<>(_head, _tail, this);
 	}
 	
-	public boolean empty(){
-		return lenght == 0;
-	}
 	@Override
 	public IComparator<E> getComparator() {
-		// TODO Auto-generated method stub
-		return comparator;
+		return _comparator;
 	}
 
 	@Override
 	public void setComparator(IComparator<E> comparator) {
-		// TODO Auto-generated method stub
-		this.comparator = comparator;
+		this._comparator = comparator;
+	}
+	
+	@Override
+	public boolean isEmpty(){
+		return _lenght == 0;
+	}
+	
+	@Override
+	public void print() {
+		System.out.println(toString());
+	}
+	
+	public String toString(){
+		if (!isEmpty()){
+			String a = "[";
+			NodeDouble<E> actual = _head;
+			for(int i = 0; i < _lenght-1; i++){
+				a += actual.toString() + ",";
+				actual = actual.getNext();
+			}
+			a += actual.toString()  + "]";
+			return a;
+		}
+		else{
+			return "[]";
+		}
 	}
 }

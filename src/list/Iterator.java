@@ -3,5 +3,6 @@ package list;
 public interface Iterator<E> extends Cloneable{
 	public E getNext();
 	public boolean hasNext();
-	public void remove();
+	public E actual();
+	public void reset();
 }

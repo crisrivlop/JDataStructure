@@ -5,14 +5,11 @@ public class DListIterator<E> implements Iterator<E>{
 	private NodeDouble<E> actual;
 	private NodeDouble<E> last;
 	private DoubleList<E> list;
-	private int lenght;
 	
-	public DListIterator(NodeDouble<E> pfirst,NodeDouble<E> plast,DoubleList<E> plist,int plength){
-		first = pfirst;
-		actual = first;
+	DListIterator(NodeDouble<E> pfirst,NodeDouble<E> plast,DoubleList<E> plist){
+		actual = first = pfirst;
 		list = plist;
 		last = plast;
-		lenght = plength;
 	}
 	
 	
@@ -26,8 +23,6 @@ public class DListIterator<E> implements Iterator<E>{
 		actual = actual.getNext();
 		return dato;
 	}
-	
-	
 	
 	
 	public E getPrev() throws NullPointerException{
@@ -56,74 +51,23 @@ public class DListIterator<E> implements Iterator<E>{
 		return actual.hasPrev();
 	}
 	
-	
-	@Override
-	public void remove() throws NullPointerException{
-		if(actual == null){
-			throw new NullPointerException("El dato actual es nulo");
-		}
-		if (actual == first){
-			NodeDouble<E> siguiente = first.getNext();
-			if (siguiente == null){
-				list.remove(0);
-				first=last=actual=null;
-			}
-			else{
-				first.setDato(siguiente.getDato());
-				first.setNext(siguiente.getNext());
-				siguiente = first.getNext();
-				if (siguiente != null){
-					siguiente.setPrev(first);	
-				}
-				lenght--;
-			}
-			
-		}
-		else if(actual == last){
-			
-		}
-		else{
-			
-		}
-		NodeDouble<E> anterior = actual.getPrev();
-		if (anterior == null){
-			actual = actual.getNext();
-		}
-		anterior.setNext(actual.getNext());
-	}
-	
+
 	@Override
 	public DListIterator<E> clone() {
-		return new DListIterator<>(first,last,list,lenght);
+		return new DListIterator<>(first,last,list);
 	}
 	
-	void setFirst(NodeDouble<E> pfirst){
-		first = pfirst;
-		
-	}
-	
-	void setLast(NodeDouble<E> plast){
-		last = plast;
-	}
-	
-	NodeDouble<E> getActual(){
-		return actual;
-	}
-	NodeDouble<E> getFirst(){
-		return first;
-	}
-	NodeDouble<E> getLast(){
-		return last;
-	}
-	
-	void setActual(NodeDouble<E> pactual){
-		actual = pactual;
-	}
-	void reset(){
-		actual = first = last = null;
-	}
-	
-	public void resetIndex(){
+	@Override
+	public void reset(){
 		actual = first;
+	}
+
+	@Override
+	public E actual() {
+		// TODO Auto-generated method stub
+		if (actual == null){
+			throw new NullPointerException("Error: no se puede acceder el siguiente dato");
+		}
+		return actual.getDato();
 	}
 }

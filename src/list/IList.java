@@ -6,6 +6,8 @@ import comparator.IComparator;
 public interface IList<E>{
 	
 	
+	public void addi(E pdato);
+	
 	/**
 	 * Agrega el dato al final de la lista.
 	 *
@@ -28,11 +30,6 @@ public interface IList<E>{
 	 */
 	public void remove(int index);
 	
-	
-	/**
-	 * Muestra la lista en consola.
-	 */
-	public void print();
 	
 	
 	
@@ -60,12 +57,19 @@ public interface IList<E>{
 	 *
 	 * @return retorna el largo de la lista
 	 */
-	public int lenght();
+	public int getLenght();
 	
 	public Iterator<E> getIterator();
 	
 	IComparator<E> getComparator();
 	
 	public void setComparator(IComparator<E> comparator);
+	
+	public boolean isEmpty();
+	
+	/**
+	 * Muestra la lista en consola.
+	 */
+	public void print();
 	
 }

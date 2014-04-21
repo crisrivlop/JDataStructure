@@ -11,8 +11,8 @@ public class Sorter<E> {
 		if (comparator == null){
 			throw new NullPointerException("ERROR: comparator no inicializado, iniciarlo en IList.setComparator(IComparator comparator)");
 		}
-		int largo = plist.lenght()-1;
-		for(int index = 0; index < plist.lenght(); index++){
+		int largo = plist.getLenght()-1;
+		for(int index = 0; index < plist.getLenght(); index++){
 			for(int swapindex = 0; swapindex < largo; swapindex++){
 				E swap  = plist.get(swapindex);
 				E swap2 = plist.get(swapindex+1);
@@ -31,9 +31,9 @@ public class Sorter<E> {
 		}
 		int min = 0;
 		E tmp;
-		for(int index = 0; index < plist.lenght(); index++){
+		for(int index = 0; index < plist.getLenght(); index++){
 			min = index;
-			for(int swapindex = index; swapindex < plist.lenght(); swapindex++){
+			for(int swapindex = index; swapindex < plist.getLenght(); swapindex++){
 				if(comparator.isHigher(plist.get(min),plist.get(swapindex))){min = swapindex;}
 			}
 			tmp = plist.get(min);
@@ -51,7 +51,7 @@ public class Sorter<E> {
 		int swapindex;
 		boolean eval;
 		E dato1,dato2;
-		for(int index = 0; index < plist.lenght(); index++){
+		for(int index = 0; index < plist.getLenght(); index++){
 			dato1 = plist.get(index);
 			swapindex = index;
 			while(swapindex > 0){
@@ -71,7 +71,7 @@ public class Sorter<E> {
 		if (comparator == null){
 			throw new NullPointerException("ERROR: comparator no inicializado, iniciarlo en IList.setComparator(IComparator comparator)");
 		}
-		quikSortAux(plist, plist.getComparator(), 0, plist.lenght()-1);
+		quikSortAux(plist, plist.getComparator(), 0, plist.getLenght()-1);
 	}
 	
 	private void quikSortAux(IList<E> plist, IComparator<E> comparator, int ini, int fin){
@@ -119,9 +119,10 @@ public class Sorter<E> {
 	
 	public boolean isSorted(IList<E> plist){
 		boolean a = false;
-		for(int x = 0; (x < plist.lenght()-1); x++){
-			a = plist.getComparator().isLess(plist.get(x), plist.get(x+1)) || plist.getComparator().isEqual(plist.get(x), plist.get(x+1));
+		for(int x = 0; (x < plist.getLenght()-1); x++){
+			a = !plist.getComparator().isHigher(plist.get(x), plist.get(x+1));
 			if (!a){
+				System.out.println("indice de fallo: " + x + " elemento: " + plist.get(x));
 				return false;
 			}
 		}
@@ -144,98 +145,119 @@ public class Sorter<E> {
 	
 	public static void main(String[] args) {
 		DoubleList<DoubleList<Integer>> list = new DoubleList<>();
-		DoubleList<Integer> lista = new DoubleList<>();
-		DoubleList<Integer> listb = new DoubleList<>();
-		DoubleList<Integer> listc = new DoubleList<>();
-		DoubleList<Integer> listd = new DoubleList<>();
-		DoubleList<Integer> liste = new DoubleList<>();
-		DoubleList<Integer> listf= new DoubleList<>();
-		DoubleList<Integer> listg = new DoubleList<>();
-		DoubleList<Integer> listh = new DoubleList<>();
-		DoubleList<Integer> listi = new DoubleList<>();
-		DoubleList<Integer> listj = new DoubleList<>();
-		lista.setComparator(comparator.IntegerComparator.getInstance());
-		listb.setComparator(comparator.IntegerComparator.getInstance());
-		listc.setComparator(comparator.IntegerComparator.getInstance());
-		listd.setComparator(comparator.IntegerComparator.getInstance());
-		liste.setComparator(comparator.IntegerComparator.getInstance());
-		listf.setComparator(comparator.IntegerComparator.getInstance());
-		listg.setComparator(comparator.IntegerComparator.getInstance());
-		listh.setComparator(comparator.IntegerComparator.getInstance());
-		listi.setComparator(comparator.IntegerComparator.getInstance());
-		listj.setComparator(comparator.IntegerComparator.getInstance());
-		for(int x = 0; x < 1000; x++){
-			lista.add((int)(Math.random() * 10000));
+		for(int i = 0; i < 1000; i++){
+			DoubleList<Integer> lista = new DoubleList<>();
+			lista.setComparator(comparator.IntegerComparator.getInstance());
+			
+			for(int x = 0; x < 1000; x++){
+				lista.add((int)(Math.random() * 10000));
+			}
+			
+			list.add(lista);	
 		}
-		for(int x = 0; x < 1000; x++){
-			listb.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			listc.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			listd.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			liste.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			listf.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			listg.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			listh.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			listi.add((int)(Math.random() * 10000));
-		}
-		for(int x = 0; x < 1000; x++){
-			listj.add((int)(Math.random() * 10000));
-		}
-		list.add(lista);
-		list.add(listb);
-		list.add(listc);
-		list.add(listd);
-		list.add(liste);
-		list.add(listf);
-		list.add(listg);
-		list.add(listh);
-		list.add(listi);
-		list.add(listj);
 		
 		Sorter<Integer> sorter = new Sorter<>();
 		System.out.println("Iniciado...");
-		long a = System.nanoTime();
-		sorter.quickSort(lista);
-		System.out.println("Lista a Terminada!");
-		sorter.quickSort(listb);
-		System.out.println("Lista b Terminada!");
-		sorter.quickSort(listc);
-		System.out.println("Lista c Terminada!");
-		sorter.quickSort(listd);
-		System.out.println("Lista d Terminada!");
-		sorter.quickSort(liste);
-		System.out.println("Lista e Terminada!");
-		sorter.quickSort(listf);
-		System.out.println("Lista f Terminada!");
-		sorter.quickSort(listg);
-		System.out.println("Lista g Terminada!");
-		sorter.quickSort(listh);
-		System.out.println("Lista h Terminada!");
-		sorter.quickSort(listi);
-		System.out.println("Lista i Terminada!");
-		sorter.quickSort(listj);
-		System.out.println("Lista j Terminada!");
+		double a = System.nanoTime();
+		
+		for(int q = 0; q < list.getLenght();q++){
+			sorter.quickSort(list.get(q));
+		}
 		
 		
-		long b = System.nanoTime();
-		float cal = (float)((float)(b/1000000000)-(float)(a/1000000000));
-		System.out.println("tiempo transcurrido(seg): " + (cal));
+		IList<Integer> mergelist = new DoubleList<>();
+		double v = System.nanoTime();
+		System.out.println("all Sorted!" + (float)((v-a)/1000000000));
+		
+		while(list.getLenght() > 2){
+			IList<Integer> tmp = list.get(0);
+			list.remove(0);
+			IList<Integer> tmp2 = list.get(0);
+			list.remove(0);
+			IList<Integer> merge = new DoubleList<>();
+			merge.setComparator(comparator.IntegerComparator.getInstance());
+			while(tmp.getLenght() != 0 && tmp2.getLenght() != 0){
+				if (tmp.get(0) <= tmp2.get(0)){
+					merge.add(tmp.get(0));
+					tmp.remove(0);
+				}
+				else{
+					merge.add(tmp2.get(0));
+					tmp2.remove(0);
+				}
+
+			}
+			if (tmp.getLenght() == 0){
+				while(tmp2.getLenght() != 0){
+					merge.add(tmp2.get(0));
+					tmp2.remove(0);
+				}
+			}
+			else if (tmp2.getLenght() == 0){
+				while(tmp.getLenght() != 0){
+					merge.add(tmp.get(0));
+					tmp.remove(0);
+				}
+			}
+			list.add((DoubleList<Integer>) merge);
+		}
+		
+		IList<Integer> tmp = list.get(0);
+		list.remove(0);
+		IList<Integer> tmp2 = list.get(0);
+		list.remove(0);
+		IList<Integer> merge = new DoubleList<>();
+		merge.setComparator(comparator.IntegerComparator.getInstance());
+		while(tmp.getLenght() != 0 && tmp2.getLenght() != 0){
+			if (tmp.get(0) <= tmp2.get(0)){
+				merge.add(tmp.get(0));
+				tmp.remove(0);
+			}
+			else{
+				merge.add(tmp2.get(0));
+				tmp2.remove(0);
+			}
+			
+		}
+		if (tmp.getLenght() == 0){
+			while(tmp2.getLenght() != 0){
+				merge.add(tmp2.get(0));
+				tmp2.remove(0);
+			}
+		}
+		else if (tmp2.getLenght() == 0){
+			while(tmp.getLenght() != 0){
+				merge.add(tmp.get(0));
+				tmp.remove(0);
+			}
+		}
+		
+		/* 
+		 * 
+		 * 
+		 * ------------------------------------------------------------------------
+		 * 
+		 *  * Cache Node
+		 * 
+		 *  * Cache Index
+		 * 
+		 * ------------------------------------------------------------------------
+		 * */
+		
+		
+		mergelist = merge;
+		mergelist.setComparator(comparator.IntegerComparator.getInstance());
+		System.out.println("-------------->> " + mergelist.getLenght());
+		
+		
+		double b = System.nanoTime();
+		
+		System.out.println("tiempo transcurrido(segundos): " + (float)((b-a)/1000000000));
 		System.out.println("Ordenamiento finalizado!");
-		String bool = sorter.isSorted(lista) && sorter.isSorted(listb) && sorter.isSorted(listc) && sorter.isSorted(listd)?"si":"no";
+		String bool = sorter.isSorted(mergelist)?"si":"no";
 		System.out.println("Estan Ordenadas? >> " + bool);
+		
+		
 		
 	}
 }
