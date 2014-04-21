@@ -1,16 +1,30 @@
 package list;
 
 import comparator.IComparator;
-
+/**
+ * Class DoubleCircularList. Listas Circulares Dobles
+ *
+ * @param <E> Tipo de elemento del que se instancia la lista
+ */
 public class DoubleCircularList<E> implements IList<E>{
 	
+	/** The _head. */
 	private NodeDouble<E> _head;
+	
+	/** The _tail. */
 	private NodeDouble<E> _tail;
+	
+	/** The _comparator. */
 	private IComparator<E> _comparator;
+	
+	/** The _lenght. */
 	private int _lenght = 0;
 	
 	
 	
+	/* (non-Javadoc)
+	 * @see list.IList#addi(java.lang.Object)
+	 */
 	@Override
 	public void addi(E pdato){
 		if (_head == null){
@@ -36,6 +50,9 @@ public class DoubleCircularList<E> implements IList<E>{
 		_lenght++;
 	}
 
+	/* (non-Javadoc)
+	 * @see list.IList#add(java.lang.Object)
+	 */
 	@Override
 	public void add(E pdato) {
 		if(_head == null){
@@ -61,6 +78,9 @@ public class DoubleCircularList<E> implements IList<E>{
 		_lenght++;
 	}
 	
+	/* (non-Javadoc)
+	 * @see list.IList#add(java.lang.Object, int)
+	 */
 	@Override
 	public void add(E pdato,int index){
 		if ( 0 > index || _lenght < index){
@@ -84,6 +104,9 @@ public class DoubleCircularList<E> implements IList<E>{
 	}
 	
 	
+	/**
+	 * Removes the first.
+	 */
 	private void removeFirst(){
 		if (_head.hasNext()){
 			_head = _head.getNext();
@@ -96,6 +119,9 @@ public class DoubleCircularList<E> implements IList<E>{
 		} 
 	}
 	
+	/**
+	 * Removes the last.
+	 */
 	private void removeLast(){
 		if (_head == _tail){
 			_head = _tail = null;
@@ -109,6 +135,9 @@ public class DoubleCircularList<E> implements IList<E>{
 	}
 	
 
+	/* (non-Javadoc)
+	 * @see list.IList#remove(int)
+	 */
 	@Override
 	public void remove(int index) {
 		if (index < 0 || _lenght <= index){
@@ -130,6 +159,9 @@ public class DoubleCircularList<E> implements IList<E>{
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see list.IList#set(int, java.lang.Object)
+	 */
 	@Override
 	public void set(int index, E pdato) {
 		if (_lenght == 0){
@@ -138,11 +170,20 @@ public class DoubleCircularList<E> implements IList<E>{
 		getIndex(index).setDato(pdato);
 	}
 
+	/* (non-Javadoc)
+	 * @see list.IList#get(int)
+	 */
 	@Override
 	public E get(int index) {
 		return getIndex(index).getDato();
 	}
 	
+	/**
+	 * Gets the index.
+	 *
+	 * @param index the index
+	 * @return the index
+	 */
 	private NodeDouble<E> getIndex(int index){
 		if (index == 0){
 			return _head;
@@ -174,36 +215,57 @@ public class DoubleCircularList<E> implements IList<E>{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see list.IList#getLenght()
+	 */
 	@Override
 	public int getLenght() {
 		return _lenght;
 	}
 
+	/* (non-Javadoc)
+	 * @see list.IList#getIterator()
+	 */
 	@Override
 	public DCListIterator<E> getIterator() {
 		return new DCListIterator<>(_head, _tail, this);
 	}
 	
+	/* (non-Javadoc)
+	 * @see list.IList#getComparator()
+	 */
 	@Override
 	public IComparator<E> getComparator() {
 		return _comparator;
 	}
 
+	/* (non-Javadoc)
+	 * @see list.IList#setComparator(comparator.IComparator)
+	 */
 	@Override
 	public void setComparator(IComparator<E> comparator) {
 		this._comparator = comparator;
 	}
 	
+	/* (non-Javadoc)
+	 * @see list.IList#isEmpty()
+	 */
 	@Override
 	public boolean isEmpty(){
 		return _lenght == 0;
 	}
 	
+	/* (non-Javadoc)
+	 * @see list.IList#print()
+	 */
 	@Override
 	public void print() {
 		System.out.println(toString());
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		if (!isEmpty()){
 			String a = "[";
