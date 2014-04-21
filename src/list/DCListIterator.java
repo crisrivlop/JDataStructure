@@ -114,8 +114,19 @@ public class DCListIterator<E> implements Iterator<E>{
 	public E actual() {
 		// TODO Auto-generated method stub
 		if (actual == null){
-			throw new NullPointerException("Error: no se puede acceder el siguiente dato");
+			throw new NullPointerException("Error: no se puede acceder el dato actual!");
 		}
 		return actual.getDato();
+	}
+
+
+
+	@Override
+	public void setActual(E pdato) {
+		// TODO Auto-generated method stub
+		if (actual == null){
+			throw new NullPointerException("Error: no se puede acceder el dato actual!");
+		}
+		actual.setDato(pdato);
 	}
 }

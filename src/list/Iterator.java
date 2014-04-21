@@ -35,4 +35,9 @@ public interface Iterator<E> extends Cloneable{
 	 * Reset. Reinicia al primer dato de la lista. 
 	 */
 	public void reset();
+	
+	/**
+	 * Reasigna el valor de el dato actual
+	 */
+	public void setActual(E pdato);
 }

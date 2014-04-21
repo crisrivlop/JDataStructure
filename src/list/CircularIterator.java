@@ -71,7 +71,19 @@ public class CircularIterator<E> implements Iterator<E>{
 	 */
 	@Override
 	public E actual() {
+		if (actual == null){
+			throw new NullPointerException("El dato actual no puede ser accedido");
+		}
 		return actual.getDato();
+	}
+
+	@Override
+	public void setActual(E pdato) {
+		// TODO Auto-generated method stub
+		if (actual == null){
+			throw new NullPointerException("El dato actual no puede ser accedido");
+		}
+		actual.setDato(pdato);
 	}
 
 }
