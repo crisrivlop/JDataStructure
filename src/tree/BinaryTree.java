@@ -185,7 +185,7 @@ public class BinaryTree<E> implements ITree<E>{
 	}
 	
 
-	public TreeNode<E> searchNode(E pdato) {
+	private TreeNode<E> searchNode(E pdato) {
 		TreeNode<E> nodo = _root;
 		while(!_comparator.isEqual(pdato, nodo.getDato())){
 			if (_comparator.isLess(pdato, nodo.getDato())){
@@ -220,7 +220,6 @@ public class BinaryTree<E> implements ITree<E>{
 		return nodo.getDato();
 	}
 
-	@Override
 	public ITree<E> prune(E pdato) {
 		// TODO Auto-generated method stub
 		TreeNode<E> nodo =  searchNode(pdato);
@@ -237,11 +236,5 @@ public class BinaryTree<E> implements ITree<E>{
 		nodo.setFather(null);
 		tree._root= nodo;
 		return tree;
-	}
-
-	@Override
-	public boolean graft(ITree<E> ptree) {
-		// TODO Auto-generated method stub
-		return true;
 	}
 }
