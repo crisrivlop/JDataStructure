@@ -63,7 +63,8 @@ public class CircularList<E> implements IList<E>{
 		else{
 			Node<E> tmp = _tail;
 			_tail = new Node<E>(pdato);
-			tmp.setNext(_head);
+			tmp.setNext(_tail);
+			_tail.setNext(_head);
 		}
 		_lenght++;
 	}
