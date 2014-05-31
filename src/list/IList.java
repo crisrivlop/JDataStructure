@@ -121,4 +121,7 @@ public interface IList<E>{
 	 */
 	public void print();
 	
+	
+	IList<E> halfSplit();
+	
 }

@@ -129,10 +129,10 @@ public class Sorter<E> {
 		return a;
 	}
 	
-	public boolean isSorted(int[] plist){
+	public boolean isSorted(E[] plist, IComparator<E> pcomparator){
 		boolean a = false;
 		for(int x = 0; x < plist.length -1; x++){
-			a = plist[x] <= plist[x+1];
+			a = !pcomparator.isHigher(plist[x], plist[x+1]);
 			if (!a){
 				return false;
 			}
@@ -140,124 +140,6 @@ public class Sorter<E> {
 		return a;
 	}
 	public void append(IList<E> plista,IList<E> plistb){
-		
-	}
-	
-	public static void main(String[] args) {
-		DoubleList<DoubleList<Integer>> list = new DoubleList<>();
-		for(int i = 0; i < 1000; i++){
-			DoubleList<Integer> lista = new DoubleList<>();
-			lista.setComparator(comparator.IntegerComparator.getInstance());
-			
-			for(int x = 0; x < 1000; x++){
-				lista.add((int)(Math.random() * 10000));
-			}
-			
-			list.add(lista);	
-		}
-		
-		Sorter<Integer> sorter = new Sorter<>();
-		System.out.println("Iniciado...");
-		double a = System.nanoTime();
-		
-		for(int q = 0; q < list.getLenght();q++){
-			sorter.quickSort(list.get(q));
-		}
-		
-		
-		IList<Integer> mergelist = new DoubleList<>();
-		double v = System.nanoTime();
-		System.out.println("all Sorted!" + (float)((v-a)/1000000000));
-		
-		while(list.getLenght() > 2){
-			IList<Integer> tmp = list.get(0);
-			list.remove(0);
-			IList<Integer> tmp2 = list.get(0);
-			list.remove(0);
-			IList<Integer> merge = new DoubleList<>();
-			merge.setComparator(comparator.IntegerComparator.getInstance());
-			while(tmp.getLenght() != 0 && tmp2.getLenght() != 0){
-				if (tmp.get(0) <= tmp2.get(0)){
-					merge.add(tmp.get(0));
-					tmp.remove(0);
-				}
-				else{
-					merge.add(tmp2.get(0));
-					tmp2.remove(0);
-				}
-
-			}
-			if (tmp.getLenght() == 0){
-				while(tmp2.getLenght() != 0){
-					merge.add(tmp2.get(0));
-					tmp2.remove(0);
-				}
-			}
-			else if (tmp2.getLenght() == 0){
-				while(tmp.getLenght() != 0){
-					merge.add(tmp.get(0));
-					tmp.remove(0);
-				}
-			}
-			list.add((DoubleList<Integer>) merge);
-		}
-		
-		IList<Integer> tmp = list.get(0);
-		list.remove(0);
-		IList<Integer> tmp2 = list.get(0);
-		list.remove(0);
-		IList<Integer> merge = new DoubleList<>();
-		merge.setComparator(comparator.IntegerComparator.getInstance());
-		while(tmp.getLenght() != 0 && tmp2.getLenght() != 0){
-			if (tmp.get(0) <= tmp2.get(0)){
-				merge.add(tmp.get(0));
-				tmp.remove(0);
-			}
-			else{
-				merge.add(tmp2.get(0));
-				tmp2.remove(0);
-			}
-			
-		}
-		if (tmp.getLenght() == 0){
-			while(tmp2.getLenght() != 0){
-				merge.add(tmp2.get(0));
-				tmp2.remove(0);
-			}
-		}
-		else if (tmp2.getLenght() == 0){
-			while(tmp.getLenght() != 0){
-				merge.add(tmp.get(0));
-				tmp.remove(0);
-			}
-		}
-		
-		/* 
-		 * 
-		 * 
-		 * ------------------------------------------------------------------------
-		 * 
-		 *  * Cache Node
-		 * 
-		 *  * Cache Index
-		 * 
-		 * ------------------------------------------------------------------------
-		 * */
-		
-		
-		mergelist = merge;
-		mergelist.setComparator(comparator.IntegerComparator.getInstance());
-		System.out.println("-------------->> " + mergelist.getLenght());
-		
-		
-		double b = System.nanoTime();
-		
-		System.out.println("tiempo transcurrido(segundos): " + (float)((b-a)/1000000000));
-		System.out.println("Ordenamiento finalizado!");
-		String bool = sorter.isSorted(mergelist)?"si":"no";
-		System.out.println("Estan Ordenadas? >> " + bool);
-		
-		
 		
 	}
 }

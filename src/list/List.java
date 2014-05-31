@@ -286,4 +286,21 @@ public class List<E> implements IList<E>{
 			return "[]";
 		}
 	}
+
+	@Override
+	public IList<E> halfSplit() {
+		// TODO Auto-generated method stub
+		List<E> tmplist = new List<>();
+		if (_lenght > 1){
+			int len = _lenght;
+			_lenght /=2;
+			Node<E> tmp = getIndex(_lenght);
+			_tail = tmp;
+			tmplist._head = tmp.getNext();
+			tmplist._tail = _tail;
+			tmplist._lenght = len - _lenght;
+		}
+		
+		return null;
+	}
 }
