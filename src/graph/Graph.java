@@ -4,6 +4,8 @@ import ordinateList.DoubleList;
 import ordinateList.Iterator;
 import comparator.IComparator;
 
+
+// TODO: Auto-generated Javadoc
 class Vertex<E>{
 	private String _tag;
 	private E _data;
@@ -96,16 +98,38 @@ class Edge<E>{
 
 
 
+/**
+ * La clase Graph. Es un grafo no dirigido basado en listas de adyacencia
+ *
+ * @param <E> El tipo de elemento
+ */
 public class Graph<E> {
+	
+	/** The _vertexs. */
 	private DoubleList<Vertex<E>> _vertexs;
+	
+	/** The _name. */
 	private String _name;
+	
+	/** The _counter. */
 	private int _counter = 0; 
 	
+	/**
+	 * Constructor de grafo.
+	 *
+	 * @param pname el nombre del grafo
+	 */
 	public Graph(String pname) {
 		_vertexs = new DoubleList<>(new VertexComparator<Vertex<E>>());
 		_name = pname;
 	}
 	
+	/**
+	 * Agrega un Vertice.
+	 *
+	 * @param data el dato a agregar
+	 * @return el id unico del nodo insertado 
+	 */
 	public String addVertex(E data){
 		Vertex<E> vertex = new Vertex<E>(data, "vertex@" + _counter);
 		_counter++;
@@ -113,6 +137,14 @@ public class Graph<E> {
 		return vertex.getTag();
 	}
 	
+	/**
+	 * Conectar. Utiliza los id´s que se retornan en el {@link addVertex(E data)}
+	 *
+	 * @param tag1 el id del primer nodo.
+	 * @param tag2 el id del segundo nodo.
+	 * @param pweight el peso de la coneccion
+	 * @return true, si conectaron los nodos
+	 */
 	public boolean connect(String tag1, String tag2, int pweight){
 		Vertex<E> a,b;
 		a = new Vertex<E>(null, tag1);
@@ -129,6 +161,12 @@ public class Graph<E> {
 	}
 	
 	
+	/**
+	 * Remover un nodo. Utiliza los id retornados por el metodo {@link addVertex(E data)}
+	 *
+	 * @param tag, el id del nodo a borrar.
+	 * @return true, si se removió
+	 */
 	public boolean remove(String tag){
 		int index = _vertexs.search(new Vertex<E>(null, tag));
 		if (0 <= index){
@@ -141,6 +179,9 @@ public class Graph<E> {
 	}
 	
 	
+	/**
+	 * Imprime el grafo.
+	 */
 	public void print(){
 		System.out.println("The graph, " + _name + ", has: \n");
 		System.out.println("Vertexs: ");
@@ -155,18 +196,34 @@ public class Graph<E> {
 	}
 	
 	
+	/**
+	 * Obtener el nombre.
+	 *
+	 * @return el nombre del grafo
+	 */
 	public String getName(){
 		return _name;
 	}
 	
 	
 	
+	/**
+	 * Obtener el vertice.
+	 *
+	 * @param tag el Id del vertice a buscar.
+	 * @return el vertice
+	 */
 	public E getVertex(String tag){
 		return _vertexs.get(_vertexs.search(new Vertex<E>(null, tag))).getData();
 	}
 	
 	
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Graph<Integer> g = new Graph<>("Grafo");
 		String a = g.addVertex(54);
