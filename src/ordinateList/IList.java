@@ -63,4 +63,6 @@ public interface IList<E>{
 	 */
 	public void print();
 	
+	public int search(E data);
+	
 }

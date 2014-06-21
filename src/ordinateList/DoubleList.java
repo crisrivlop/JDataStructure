@@ -92,6 +92,7 @@ public class DoubleList<E> implements IList<E>{
 		if(_head == null){
 			_head = _tail = new NodeDouble<E>(pdato);
 		}
+		/*
 		else if(_tail == _head){
 			if (_comparator.isLess(pdato, _head.getDato())){
 				_head = new NodeDouble<E>(pdato);
@@ -102,13 +103,14 @@ public class DoubleList<E> implements IList<E>{
 			_head.setNext(_tail);
 			_tail.setPrev(_head);
 		}
+		*/
 		else if (_comparator.isLess(pdato, _head.getDato())){
 			NodeDouble<E> tmp = _head;
 			_head = new NodeDouble<E>(pdato);
 			_head.setNext(tmp);
 			tmp.setPrev(_head);
 		}
-		else if (_comparator.isLess(_tail.getDato(), pdato)){
+		else if (!_comparator.isHigher(_tail.getDato(), pdato)){
 			NodeDouble<E> tmp = _tail;
 			_tail = new NodeDouble<E>(pdato);
 			tmp.setNext(_tail);
@@ -277,5 +279,27 @@ public class DoubleList<E> implements IList<E>{
 		else{
 			return "[]";
 		}
+	}
+
+
+	@Override
+	public int search(E data) {
+		int centerint,left, right;
+		left=0;right=_lenght-1;
+		E center;
+		while (left <= right){
+			centerint = (left + right)/2;
+			center = get(centerint);
+			if(_comparator.isHigher(center,data)){
+				right = centerint-1;
+			}
+			else if (_comparator.isLess(center, data)){
+				left = centerint+1;
+			}
+			else{
+				return (left+right)/2;
+			}
+		}
+		return -1;
 	}
 }

@@ -53,23 +53,13 @@ public class CircularList<E> implements IList<E>{
 			_head = _tail = new Node<E>(pdato);
 			_head.setNext(_head);
 		}
-		else if(_tail == _head){
-			if (_comparator.isLess(pdato, _head.getDato())){
-				_head = new Node<E>(pdato);
-			}
-			else{
-				_tail = new Node<E>(pdato);
-			}
-			_head.setNext(_tail);
-			_tail.setNext(_head);
-		}
 		else if (_comparator.isLess(pdato, _head.getDato())){
 			Node<E> tmp = _head;
 			_head = new Node<E>(pdato);
 			_head.setNext(tmp);
 			_tail.setNext(_head);
 		}
-		else if (_comparator.isLess(_tail.getDato(), pdato)){
+		else if (!_comparator.isHigher(_tail.getDato(), pdato)){
 			Node<E> tmp = _tail;
 			_tail = new Node<E>(pdato);
 			tmp.setNext(_tail);
@@ -223,5 +213,26 @@ public class CircularList<E> implements IList<E>{
 		else{
 			return "[]";
 		}
+	}
+	
+	@Override
+	public int search(E data) {
+		int centerint,left, right;
+		left=0;right=_lenght-1;
+		E center;
+		while (left < right){
+			centerint = (left + right)/2;
+			center = get(centerint);
+			if(_comparator.isHigher(center,data)){
+				right = centerint-1;
+			}
+			else if (_comparator.isLess(center, data)){
+				left = centerint+1;
+			}
+			else{
+				return (left+right)/2;
+			}
+		}
+		return -1;
 	}
 }
