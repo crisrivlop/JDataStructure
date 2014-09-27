@@ -23,14 +23,10 @@ public class Queue<E> {
 		if(_head == null){
 			_head = _tail = new Node<>(pdato);
 		}
-		else if(_head == _tail){
-			_tail = new Node<>(pdato);
-			_head.setNext(_tail);
-		}
 		else{
-			Node<E> tmp = _tail;
-			_tail = new Node<>(pdato);
-			tmp.setNext(_tail);
+			Node<E> insertionNode = new Node<E>(pdato);
+			_tail.setNext(insertionNode);
+			_tail = insertionNode;
 		}
 	}
 	
@@ -42,11 +38,6 @@ public class Queue<E> {
 	public E dequeue(){
 		if(_head == null){
 			throw new NullPointerException("La cola esta vacia!");
-		}
-		else if(_head == _tail){
-			E dato = _head.getDato();
-			_head = _tail = null;
-			return dato;
 		}
 		else{
 			E tmp = _head.getDato();

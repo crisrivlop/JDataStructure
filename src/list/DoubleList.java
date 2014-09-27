@@ -72,16 +72,11 @@ public class DoubleList<E> implements IList<E>{
 		if (_head == null){
 			_head = _tail = new NodeDouble<E>(pdato);
 		}
-		else if (_head == _tail){
-			_head = new NodeDouble<E>(pdato);
-			_head.setNext(_tail);
-			_tail.setPrev(_head);
-		}
 		else{
-			NodeDouble<E> tmp = _head;
-			_head = new NodeDouble<E>(pdato);
-			_head.setNext(tmp);
-			tmp.setPrev(_head);
+			NodeDouble<E> insertionNode = new NodeDouble<E>(pdato);
+			insertionNode.setNext(_head);
+			_head.setPrev(insertionNode);
+			_head = insertionNode;
 		}
 		_lenght++;
 	}
@@ -94,16 +89,11 @@ public class DoubleList<E> implements IList<E>{
 		if(_head == null){
 			_head = _tail = new NodeDouble<E>(pdato);
 		}
-		else if(_tail == _head){
-			_tail = new NodeDouble<E>(pdato);
-			_head.setNext(_tail);
-			_tail.setPrev(_head);
-		}
 		else{
-			NodeDouble<E> tmp = _tail;
-			_tail = new NodeDouble<E>(pdato);
-			tmp.setNext(_tail);
-			_tail.setPrev(tmp);
+			NodeDouble<E> insertionNode = new NodeDouble<E>(pdato);
+			insertionNode.setPrev(_tail);
+			_tail.setNext(insertionNode);
+			_tail = insertionNode;
 		}
 		_lenght++;
 	}

@@ -64,14 +64,10 @@ public class List<E> implements IList<E>{
 		if (_head == null){
 			_head = _tail = new Node<E>(pdato);
 		}
-		else if (_head == _tail){
-			_head = new Node<E>(pdato);
-			_head.setNext(_tail);
-		}
 		else{
-			Node<E> tmp = _head;
-			_head = new Node<E>(pdato);
-			_head.setNext(tmp);
+			Node<E> insertionNode = new Node<E>(pdato);
+			insertionNode.setNext(_head);
+			_head = insertionNode;
 		}
 		_lenght++;
 	}
@@ -84,14 +80,10 @@ public class List<E> implements IList<E>{
 		if(_head == null){
 			_head = _tail = new Node<E>(pdato);
 		}
-		else if(_tail == _head){
-			_tail = new Node<E>(pdato);
-			_head.setNext(_tail);
-		}
 		else{
-			Node<E> tmp = _tail;
-			_tail = new Node<E>(pdato);
-			tmp.setNext(_tail);
+			Node<E> insertionNode = new Node<E>(pdato);
+			_tail.setNext(insertionNode);
+			_tail = insertionNode;
 		}
 		_lenght++;
 	}

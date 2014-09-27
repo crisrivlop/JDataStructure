@@ -32,20 +32,13 @@ public class DoubleCircularList<E> implements IList<E>{
 			_head.setNext(_head);
 			_head.setPrev(_head);
 		}
-		else if (_head == _tail){
-			_head = new NodeDouble<E>(pdato);
-			_head.setNext(_tail);
-			_head.setPrev(_tail);
-			_tail.setNext(_head);
-			_tail.setPrev(_head);
-		}
 		else{
-			NodeDouble<E> tmp = _head;
-			_head = new NodeDouble<E>(pdato);
-			_head.setNext(tmp);
-			tmp.setPrev(_head);
-			_head.setPrev(_tail);
+			NodeDouble<E> insertionNode = new NodeDouble<E>(pdato);
+			insertionNode.setNext(_head);
+			_head.setPrev(insertionNode);
+			_head = insertionNode;
 			_tail.setNext(_head);
+			_head.setPrev(_tail);
 		}
 		_lenght++;
 	}
@@ -60,20 +53,14 @@ public class DoubleCircularList<E> implements IList<E>{
 			_head.setNext(_head);
 			_head.setPrev(_head);
 		}
-		else if(_tail == _head){
-			_tail = new NodeDouble<E>(pdato);
-			_head.setNext(_tail);
-			_head.setPrev(_tail);
-			_tail.setNext(_head);
-			_tail.setPrev(_head);
-		}
 		else{
-			NodeDouble<E> tmp = _tail;
-			_tail = new NodeDouble<E>(pdato);
-			tmp.setNext(_tail);
-			_tail.setPrev(tmp);
+			NodeDouble<E> insertionNode = new NodeDouble<E>(pdato);
+			insertionNode.setPrev(_tail);
+			_tail.setNext(insertionNode);
+			_tail = insertionNode;
 			_tail.setNext(_head);
 			_head.setPrev(_tail);
+			
 		}
 		_lenght++;
 	}

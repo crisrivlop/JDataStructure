@@ -32,15 +32,10 @@ public class CircularList<E> implements IList<E>{
 			_head = _tail = new Node<E>(pdato);
 			_head.setNext(_head);
 		}
-		else if (_head == _tail){
-			_head = new Node<E>(pdato);
-			_head.setNext(_tail);
-			_tail.setNext(_head);
-		}
 		else{
-			Node<E> tmp = _head;
-			_head = new Node<E>(pdato);
-			_head.setNext(tmp);
+			Node<E> insertionNode = new Node<E>(pdato);
+			insertionNode.setNext(_head);
+			_head = insertionNode;
 			_tail.setNext(_head);
 		}
 		_lenght++;
@@ -55,16 +50,11 @@ public class CircularList<E> implements IList<E>{
 			_head = _tail = new Node<E>(pdato);
 			_head.setNext(_head);
 		}
-		else if(_tail == _head){
-			_tail = new Node<E>(pdato);
-			_head.setNext(_tail);
-			_tail.setNext(_head);
-		}
 		else{
-			Node<E> tmp = _tail;
-			_tail = new Node<E>(pdato);
-			tmp.setNext(_tail);
-			_tail.setNext(_head);
+			Node<E> insertionNode = new Node<E>(pdato);
+			_tail.setNext(insertionNode);
+			_tail = insertionNode;
+			_head.setNext(_tail);
 		}
 		_lenght++;
 	}
