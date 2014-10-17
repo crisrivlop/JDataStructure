@@ -45,7 +45,7 @@ public class CircularIterator<E> implements Iterator<E>{
 	@Override
 	public boolean hasNext(){
 		if (actual == null){
-			throw new NullPointerException("Error: no se puede acceder el siguiente dato");
+			return false;
 		}
 		return true;
 	}
