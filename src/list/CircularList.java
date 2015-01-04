@@ -54,7 +54,7 @@ public class CircularList<E> implements IList<E>{
 			Node<E> insertionNode = new Node<E>(pdato);
 			_tail.setNext(insertionNode);
 			_tail = insertionNode;
-			_head.setNext(_tail);
+			_tail.setNext(_head);
 		}
 		_lenght++;
 	}
